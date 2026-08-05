@@ -1,0 +1,6 @@
+name: Glide
+version: '${version}'
+
+main: io.github.Mastery123hdfd.Glide
+api-version: '26.2'
+load: POSTWORLD
