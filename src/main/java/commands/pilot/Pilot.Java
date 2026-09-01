@@ -23,6 +23,7 @@ public class Pilot {
             sender.sendPlainMessage("Only players can pilot ships!");
             return Command.SINGLE_SUCCESS;
         } //Catches anyone whose not a pilot
-        CraftBus.addCraft(executor);
+        CraftBus.addCraft(player);
+        return Command.SINGLE_SUCCESS;
     }
 }
