@@ -11,20 +11,40 @@ import org.jspecify.annotations.NonNull;
 import java.util.*;
 
 public class Craft{
+<<<<<<< HEAD
+    ArrayList<Block> Blocks= new ArrayList<Block>();
+    //Constructor given the coordinates of the player entity
+    public Craft(Player p){
+        DetectCraft(p);
+=======
     Set<Block> Blocks= new HashSet<>();
     Set<Block> Exposed = new HashSet<>();
     public Craft(Player p, World w){
         DetectCraft(p, w);
+>>>>>>> a043dfafaab874d477c1d898c92f4c1045f560e6
     }
+    private Boolean sealed;
+    private Boolean canFly;
+    private Boolean sinkable;
+    private Boolean canFloat;
+
+    private int health;
+    private int weight;
+    private int thrust;
+
+
+
     public Craft(Block sign, World w) {DetectCraft(sign, w);}
     public void DetectCraft(@NonNull Player p, @NonNull World w){
         Queue<Block> scan = new LinkedList<Block>();
         Set<Block> scanned = new HashSet<Block>();
         scan.offer(w.getBlockAt(p.getLocation()));
         Scan(scan, scanned);
-
+        buoyancyCalc();
+        thrustCalc();
+        sealCalc();
     }
-    public void DetectCraft(Block sign, World w){
+    private void DetectCraft(Block sign, World w){
         Queue<Block> scan = new LinkedList<Block>();
         Set<Block> scanned = new HashSet<Block>();
         scan.offer(sign);
@@ -43,7 +63,7 @@ public class Craft{
             scanned.add(b);
         }
     }
-    public void setDirSPHERICAL(int theta, int phi, int speed){
+    private void setDirSPHERICAL(int theta, int phi, int speed){
         Vector unit = new Vector();
         unit.setZ((int)Math.cos(phi));
         unit.setX((int)(Math.sin(phi)*Math.cos(theta)));
@@ -52,12 +72,16 @@ public class Craft{
         Move(unit);
     }
     private void Move(Vector mvec){
-        //Use moveAnimate, make the blocks invisible, change coordinates accordingly
+        for(Block b:Blocks){
+            Block ghost = b.getRelative(mvec.getX(), mvec.getY(), mvec.getZ());
+            if(!ghost.isEmpty()){
+            }
+        }
     }
 
-    private void moveAnimate(){
-        //Use BlockDisplay here : D
-    }
+    /*private void moveAnimate(){
+       //Use BlockDisplay here : D
+    }*/
     private boolean checkValid(Block b){
         boolean empty = b.isEmpty();
         if (empty){
@@ -66,12 +90,31 @@ public class Craft{
         return false;
     }
 
-    public void changeWorld(World w){
+    private void changeWorld(World w){
 
     }
 
-    public Vector ConvertInts(int x, int y, int z){return new Vector(x, y, z);}
+    private void buoyancyCalc(){
+        
+    }
+    
+    public int Waterline(){
+        for(Block b : Blocks){
+            
+        }
+    }
+    
+    private void thrustCalc(){
+    
+    }
 
-    public Block getRelative(Block b, Vector v){return b.getRelative((int)v.getX(),(int)v.getY(),(int)v.getZ());}
+    private void sealCalc(){
+    
+    }
+
+    private Vector ConvertInts(int x, int y, int z){return new Vector(x, y, z);}
+
+    private Block getRelative(Block b, Vector v){return b.getRelative((int)v.getX(),(int)v.getY(),(int)v.getZ());}
 
 }
+    

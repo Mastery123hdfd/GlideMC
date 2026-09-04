@@ -10,7 +10,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Server;
 
 public final class Glide extends JavaPlugin {
-
+    CraftBus cbus = new CraftBus(Server.getWorld());
     @Override
     public void onEnable() {
         World o = Bukkit.getWorld("overworld");
