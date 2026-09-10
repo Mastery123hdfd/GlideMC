@@ -10,7 +10,8 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.2.build.+")
-
+    // Source: https://mvnrepository.com/artifact/org.yaml/snakeyaml
+    compileOnly("org.yaml:snakeyaml:2.7")
 }
 
 java {

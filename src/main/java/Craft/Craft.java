@@ -5,8 +5,10 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.bukkit.block.data.BlockData;
 import Utility.VFaces;
 import org.jspecify.annotations.NonNull;
+import org.bukkit.Material;
 
 import java.util.*;
 
@@ -32,6 +34,11 @@ public class Craft{
     private int weight;
     private int thrust;
 
+    private int height = -1;
+    private int width = -1;
+    private int length = -1;
+
+    private Queue<Material> Mats = new LinkedList<Material>();
 
 
     public Craft(Block sign, World w) {DetectCraft(sign, w);}
@@ -71,6 +78,7 @@ public class Craft{
         unit.multiply(speed);
         Move(unit);
     }
+
     private void Move(Vector mvec){
         for(Block b:Blocks){
             Block ghost = b.getRelative(mvec.getX(), mvec.getY(), mvec.getZ());
@@ -79,11 +87,25 @@ public class Craft{
         }
     }
 
+    private void setGlass(){
+        for(Block b : Blocks){
+            Mats.push(b.Material); //Materials will be stored in the correct order;
+            b.setType(Material.BLUE_GLASS);
+        }
+    }
+
+    private void setMaterialBack(){
+        for(Block b : Blocks){
+            b.setType(Mats.pop); //FIFO
+        }
+    }
+
     /*private void moveAnimate(){
        //Use BlockDisplay here : D
     }*/
     private boolean checkValid(Block b){
         boolean empty = b.isEmpty();
+        
         if (empty){
             return true;
         } //I'll add a config file later but that's not at the top of my agenda rn
@@ -97,12 +119,77 @@ public class Craft{
     private void buoyancyCalc(){
         
     }
-    
-    public int Waterline(){
-        for(Block b : Blocks){
-            
-        }
+
+    private void MassCalc(){
+        
     }
+    
+    public int getWaterline(){
+        ArrayList<Integer> touchWatery = new ArrayList<Integer>();
+        this.setGlass();
+        for(Block b : Blocks){
+            if(isTouching(b, Material.WATER){
+                touchWater.add(b.getZ);
+            }
+        }
+        this.setMaterialBack(); #Im so proud I used queues correctly!
+        int Waterline = -9999;
+        for(int i : touchWatery){
+            Waterline = i ? i>Waterline : Waterline;
+        }
+        return Waterline;
+    }
+    
+    private boolean isTouching(Block b, Material m){
+        for(BlockFace bf : BlockFace.values()){
+            if(b.getRelative(bf).getType == m){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getHeight(){
+        if(height==-1){
+            int hmax = 0;
+            int hmin = 0;
+            for(Block b : Blocks){
+                int z = b.getZ();
+                hmax=z ? hmax > z : h=h+0;
+                hmin = z ? hmin < z : h=h+0;
+            }
+            return hmax-hmin;
+        }
+        else {return height;}
+    }
+    public int getWidth(){
+        if(width==-1){
+            int hmax = 0;
+            int hmin = 0;
+            for(Block b : Blocks){
+                int z = b.getY();
+                hmax=z ? hmax > z : h=h+0;
+                hmin = z ? hmin < z : h=h+0;
+            }
+            return hmax-hmin;
+        }
+        else {return height;}
+    }
+    public int getHeight(){
+        if(length==-1){
+            int hmax = 0;
+            int hmin = 0;
+            for(Block b : Blocks){
+                int z = b.getX();
+                hmax=z ? hmax > z : h=h+0;
+                hmin = z ? hmin < z : h=h+0;
+            }
+            return hmax-hmin;
+        }
+        else {return height;}
+    }
+    
+    public int 
     
     private void thrustCalc(){
     
