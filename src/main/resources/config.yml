@@ -1,0 +1,38 @@
+BlocksBelowWaterlinePercentageMax: 25
+BlocksBelowWaterlinePercentageMin: 5
+BlocksBlocked:
+ -BEDROCK
+ -BARRIER
+ -COMMAND_BLOCK
+BlocksUndetected:
+ -STONE
+ -GRANITE
+ -DIORITE
+ -CALCITE
+ -ANDESITE
+ -GRAVEL
+ -SAND #Use double slabs
+BlockGroupsBlocked:
+ -TERRACOTTAS
+ -GLAZES
+ -PANES
+#Customize the MIL.yaml file to customize Mass Indexes per value, groups can be set with the Groups.yaml file.
+ArmorIndexExceptions:
+ -IRON_BLOCK: 20
+ -DIAMOND_BLOCK: 2
+ -TINTED_GLASS: 14
+HealthBlocks:
+ -REDSTONE_BLOCK
+Burnabables:
+ -COAL
+ -CHARCOAL
+ -COAL_BLOCK
+ -CHARCOAL_BLOCK
+ -BLAZE_ROD
+ -BLAZE_POWDER
+ -FIRE_CHARGE
+RenewableBurnables:
+ -LAVA_BUCKET
+RecycleBuckets: true
+UseBurnchest: false
+#If false, use furnace

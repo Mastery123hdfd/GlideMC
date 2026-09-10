@@ -13,18 +13,14 @@ import org.bukkit.Material;
 import java.util.*;
 
 public class Craft{
-<<<<<<< HEAD
-    ArrayList<Block> Blocks= new ArrayList<Block>();
-    //Constructor given the coordinates of the player entity
-    public Craft(Player p){
-        DetectCraft(p);
-=======
-    Set<Block> Blocks= new HashSet<>();
-    Set<Block> Exposed = new HashSet<>();
-    public Craft(Player p, World w){
-        DetectCraft(p, w);
->>>>>>> a043dfafaab874d477c1d898c92f4c1045f560e6
-    }
+    private Craft Supercraft;
+    private String name;
+    private Player pilot;
+
+    private ArrayList<Block> Blocks= new ArrayList<Block>();
+    private ArrayList<Entity> Entities = new ArrayList<Entity>();
+    private ArrayList<Craft> Subcrafts = new ArrayList<Craft>();
+
     private Boolean sealed;
     private Boolean canFly;
     private Boolean sinkable;
@@ -34,16 +30,26 @@ public class Craft{
     private int weight;
     private int thrust;
 
+    private int yaw;
+    private int pitch;
+    private int trim;
+
     private int height = -1;
     private int width = -1;
     private int length = -1;
 
     private Queue<Material> Mats = new LinkedList<Material>();
 
+    public Craft(Player p, World w){
+        DetectCraft(p, w);
+    }
 
     public Craft(Block sign, World w) {DetectCraft(sign, w);}
     public void DetectCraft(@NonNull Player p, @NonNull World w){
         Queue<Block> scan = new LinkedList<Block>();
+        Entities.add(p);
+        Pilot = p;
+        
         Set<Block> scanned = new HashSet<Block>();
         scan.offer(w.getBlockAt(p.getLocation()));
         Scan(scan, scanned);
@@ -78,11 +84,14 @@ public class Craft{
         unit.multiply(speed);
         Move(unit);
     }
-
+    
     private void Move(Vector mvec){
         for(Block b:Blocks){
             Block ghost = b.getRelative(mvec.getX(), mvec.getY(), mvec.getZ());
             if(!ghost.isEmpty()){
+                return;
+            } else {
+                b.
             }
         }
     }
@@ -117,10 +126,23 @@ public class Craft{
     }
 
     private void buoyancyCalc(){
-        
+        int DENSITY = 1000; //Kilograms per cubic meter
+        int WATERLINE = getWaterline();
+        ArrayList<Block> Underwater = new ArrayList<Block>();
+        for(Block b : Blocks){
+            if(b.getZ() < WATERLINE){
+                Underwater.add(b);
+            }
+        }
+        if(DENSITY * UNDERWATER.length * 9.81 > weight) {
+            canFloat = true;
+        } else {
+            canFloat = false;
+        }
+
     }
 
-    private void MassCalc(){
+    private void WeightCalc(){
         
     }
     
@@ -175,6 +197,7 @@ public class Craft{
         }
         else {return height;}
     }
+    public int getWeight() {return weight;}
     public int getHeight(){
         if(length==-1){
             int hmax = 0;
